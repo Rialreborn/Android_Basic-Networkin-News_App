@@ -2,9 +2,13 @@ package com.example.android.mynewsapp;
 
 import android.app.LoaderManager;
 import android.content.Loader;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +21,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     private static final int loader_id = 1;
 
+    private TextView mEmptyStateTextView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,12 +34,27 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         newsListView.setAdapter(adapter);
 
         LoaderManager loaderManager = getLoaderManager();
-        loaderManager.initLoader(loader_id, null, this);
+
+        ConnectivityManager connectivityManager = (ConnectivityManager) getApplicationContext().getSystemService(CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        boolean isConnected = networkInfo != null && networkInfo.isConnectedOrConnecting();
+        if (isConnected){
+            loaderManager.initLoader(loader_id, null, this);
+        } else {
+            mEmptyStateTextView = (TextView) findViewById(R.id.empty_state);
+            newsListView.setEmptyView(mEmptyStateTextView);
+            View progressBar = (View) findViewById(R.id.progress_bar);
+            progressBar.setVisibility(View.GONE);
+            mEmptyStateTextView.setText(R.string.network_issues);
+        }
+
+
     }
 
     @Override
     public Loader<List<NewsObject>> onCreateLoader(int id, Bundle args) {
-        return new NewsLoader(this);
+        String url = "https://newsapi.org/v2/top-headlines?sources=bbc-news&apiKey=e6afa0c9cda5412b9360587963f4ec32";
+        return new NewsLoader(this, url);
     }
 
     @Override

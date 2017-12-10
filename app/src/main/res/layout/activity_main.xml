@@ -13,4 +13,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
+    <TextView
+        android:id="@+id/empty_state"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        tools:text="Empty State View" />
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/Widget.AppCompat.ProgressBar"
+        android:layout_centerInParent="true"
+        android:id="@+id/progress_bar"/>
+
 </RelativeLayout>

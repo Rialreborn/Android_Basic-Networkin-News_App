@@ -7,10 +7,14 @@ package com.example.android.mynewsapp;
 public class NewsObject {
     String mNewsTitle;
     String mNewsContent;
+    String mNewsUrl;
+    String mNewsImage;
 
-    public NewsObject(String newsTitle, String newsContent) {
+    public NewsObject(String newsTitle, String newsContent, String newsUrl, String newsImage) {
         mNewsTitle = newsTitle;
         mNewsContent = newsContent;
+        mNewsUrl = newsUrl;
+        mNewsImage = newsImage;
     }
 
     public String getNewsTitle() {
@@ -19,6 +23,14 @@ public class NewsObject {
 
     public String getNewsContent() {
         return mNewsContent;
+    }
+
+    public String getNewsUrl() {
+        return mNewsUrl;
+    }
+
+    public String getNewsImage() {
+        return mNewsImage;
     }
 
 }

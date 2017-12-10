@@ -3,17 +3,18 @@ package com.example.android.mynewsapp;
 import android.content.AsyncTaskLoader;
 import android.content.Context;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class NewsLoader extends AsyncTaskLoader<List<NewsObject>> {
 
     private static final String LOG_TAG = NewsLoader.class.getName();
 
+    private String mUrl;
 
 
-    public NewsLoader(Context context) {
+    public NewsLoader(Context context, String url) {
         super(context);
+        mUrl = url;
     }
 
     @Override
@@ -23,9 +24,10 @@ public class NewsLoader extends AsyncTaskLoader<List<NewsObject>> {
 
     @Override
     public List<NewsObject> loadInBackground() {
-        List<NewsObject> newsArray = new ArrayList<>();
-        newsArray.add(new NewsObject("Zane is Awesome", "He is the best in the world!!"));
-        newsArray.add(new NewsObject("Elaine is second Awesome", "She is the second best!!"));
+        if (mUrl == null) {
+            return null;
+        }
+        List<NewsObject> newsArray = NetworkRequest.fetchNews(mUrl);
         return newsArray;
     }
 }
