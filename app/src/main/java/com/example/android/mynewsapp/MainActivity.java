@@ -82,11 +82,13 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
 //        https://newsapi.org/v2/top-headlines?sources=bbc-news&apiKey=e6afa0c9cda5412b9360587963f4ec32
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-
+        String searchQuery = sharedPreferences.getString(
+                getString(R.string.search_key),
+                getString(R.string.search_default));
         Uri baseUri = Uri.parse(url);
         Uri.Builder builder = baseUri.buildUpon();
 
-        builder.appendQueryParameter("q", "apple");
+        builder.appendQueryParameter("q", searchQuery);
         builder.appendQueryParameter("sortBy", "popularity");
         builder.appendQueryParameter("apiKey", "e6afa0c9cda5412b9360587963f4ec32");
 
