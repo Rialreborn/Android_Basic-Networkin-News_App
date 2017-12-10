@@ -19,10 +19,11 @@
         android:layout_margin="4dp"
         android:layout_below="@id/title_news_item"
         android:id="@+id/content_news_item"
-        android:drawableLeft="@drawable/ic_launcher_background"
-        android:drawableStart="@drawable/ic_launcher_background"
+
         android:maxLines="4"
         tools:text="News Description" />
+    <!--android:drawableLeft="@drawable/ic_launcher_background"-->
+    <!--android:drawableStart="@drawable/ic_launcher_background"-->
 
 
 </RelativeLayout>
