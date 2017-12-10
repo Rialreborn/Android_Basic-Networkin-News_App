@@ -1,5 +1,7 @@
 package com.example.android.mynewsapp;
 
+import android.graphics.Bitmap;
+
 /**
  * Created by Zane on 09/12/2017.
  */
@@ -8,9 +10,9 @@ public class NewsObject {
     String mNewsTitle;
     String mNewsContent;
     String mNewsUrl;
-    String mNewsImage;
+    Bitmap mNewsImage;
 
-    public NewsObject(String newsTitle, String newsContent, String newsUrl, String newsImage) {
+    public NewsObject(String newsTitle, String newsContent, String newsUrl, Bitmap newsImage) {
         mNewsTitle = newsTitle;
         mNewsContent = newsContent;
         mNewsUrl = newsUrl;
@@ -29,7 +31,7 @@ public class NewsObject {
         return mNewsUrl;
     }
 
-    public String getNewsImage() {
+    public Bitmap getNewsImage() {
         return mNewsImage;
     }
 

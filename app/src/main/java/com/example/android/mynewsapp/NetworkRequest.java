@@ -1,5 +1,7 @@
 package com.example.android.mynewsapp;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -58,8 +60,8 @@ public final class NetworkRequest {
         InputStream inputStream = null;
         try {
             urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setReadTimeout(10000);
-            urlConnection.setConnectTimeout(15000);
+//            urlConnection.setReadTimeout(10000);
+//            urlConnection.setConnectTimeout(15000);
             urlConnection.setRequestMethod("GET");
             urlConnection.connect();
 
@@ -117,12 +119,43 @@ public final class NetworkRequest {
                 String newsURL = jsonObject.getString("url");
                 String newsImage = jsonObject.getString("urlToImage");
 
-                news.add(new NewsObject(newsTitle, newsContent, newsURL, newsImage));
+                Bitmap bitmap = downloadBitmap(newsImage);
+
+
+
+
+
+                news.add(new NewsObject(newsTitle, newsContent, newsURL, bitmap));
             }
         } catch (JSONException e) {
             Log.e(LOG_TAG, "extractDataFromJson: ", e);
         }
 
         return news;
+    }
+
+    private static Bitmap downloadBitmap(String url) {
+        HttpURLConnection urlConnection = null;
+        try {
+            URL uri = new URL(url);
+            urlConnection = (HttpURLConnection) uri.openConnection();
+            if (urlConnection.getResponseCode() != 200) {
+                return null;
+            }
+
+            InputStream inputStream = urlConnection.getInputStream();
+            if (inputStream != null) {
+                Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                return bitmap;
+            }
+        } catch (Exception e) {
+            urlConnection.disconnect();
+            Log.w("ImageDownloader", "Error downloading image from " + url);
+        } finally {
+            if (urlConnection != null) {
+                urlConnection.disconnect();
+            }
+        }
+        return null;
     }
 }
