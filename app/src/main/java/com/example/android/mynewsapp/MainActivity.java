@@ -3,10 +3,12 @@ package com.example.android.mynewsapp;
 import android.app.LoaderManager;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -74,10 +76,20 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public Loader<List<NewsObject>> onCreateLoader(int id, Bundle args) {
+        String url = "https://newsapi.org/v2/everything";
+
+//        https://newsapi.org/v2/top-headlines?sources=bbc-news&apiKey=e6afa0c9cda5412b9360587963f4ec32
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+        Uri baseUri = Uri.parse(url);
+        Uri.Builder builder = baseUri.buildUpon();
+
+        builder.appendQueryParameter("q", "apple");
+        builder.appendQueryParameter("sortBy", "popularity");
+        builder.appendQueryParameter("apiKey", "e6afa0c9cda5412b9360587963f4ec32");
 
 
-        String url = "https://newsapi.org/v2/top-headlines?sources=bbc-news&apiKey=e6afa0c9cda5412b9360587963f4ec32";
-        return new NewsLoader(this, url);
+        return new NewsLoader(this, builder.toString());
     }
 
     @Override
