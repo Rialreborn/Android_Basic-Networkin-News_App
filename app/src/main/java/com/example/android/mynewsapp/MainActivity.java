@@ -74,6 +74,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public Loader<List<NewsObject>> onCreateLoader(int id, Bundle args) {
+
+
         String url = "https://newsapi.org/v2/top-headlines?sources=bbc-news&apiKey=e6afa0c9cda5412b9360587963f4ec32";
         return new NewsLoader(this, url);
     }

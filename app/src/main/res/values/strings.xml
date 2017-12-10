@@ -6,4 +6,10 @@
 
     <!-- Menu -->
     <string name="settings_title">Settings</string>
+
+    <!-- Menu Edit Text Search Field-->
+    <string name="search_default">Politics</string>
+    <string name="search_key">search_key</string>
+    <string name="search_label">Search Topic</string>
+
 </resources>
