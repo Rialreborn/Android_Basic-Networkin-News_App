@@ -3,4 +3,7 @@
     <string name="image_content">Image for news item</string>
     <string name="network_issues">Check Internet Connection</string>
     <string name="no_news_found">No new News found</string>
+
+    <!-- Menu -->
+    <string name="settings_title">Settings</string>
 </resources>
